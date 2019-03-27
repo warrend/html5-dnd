@@ -6,24 +6,27 @@ import '../../App.css'
 
 const TaskList = styled.div`
   display: flex;
-  justify-content: center;
   flex-direction: column;
   width: 400px;
   height: 400px;
   background: #efefef;
   margin: 20px;
   padding: 2em;
+  transition: background 0.2s ease;
+  background: ${props => (props.isDraggingOver ? '#dee8f9' : 'white')};
 `;
 
 class BoxA extends Component {
   render() {
+    console.log("BOXA: ", this.props)
     return (
-      <Droppable droppableId={1}>
-        {(provided) => (
-          <TaskList {...provided.droppableProps } ref={provided.innerRef}>
-            {this.props.cards.order.map((card, index) => (
+      <Droppable droppableId={this.props.index}>
+        {(provided, snapshot) => (
+          <TaskList {...provided.droppableProps } ref={provided.innerRef} isDraggingOver={snapshot.isDraggingOver}>
+          <div style={{ marginBottom: '1em', fontSize: '24px', fontWeight: 'bold' }}>{this.props.category.name}</div>
+            {this.props.category.products.map((product, index) => (
               <Card 
-                card={this.props.cards[card]}
+                card={this.props.products[product]}
                 index={index}
               />
             ))}

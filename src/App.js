@@ -2,26 +2,43 @@ import React, { Component } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd';
 import './App.css'
 import BoxA from './components/BoxA'
-import BoxB from './components/BoxB'
 
 const data = {
-  '1': {
-    id: '1',
-    name: 'winter',
+  categories: {
+    'cat-1': {
+      id: 'cat-1',
+      name: 'Meat',
+      products: ['1', '3'],
+    },
+    'cat-2':{
+      id: 'cat-2',
+      name: 'Vegan',
+      products: ['2', '4', '5'],
+    },
   },
-  '2': {
-    id: '2',
-    name: 'spring',
+  categoryOrder: ['cat-1', 'cat-2'],
+  products: {
+    '1': {
+      id: '1',
+      name: 'Chicken',
+    },
+    '2': {
+      id: '2',
+      name: 'Tofu',
+    },
+    '3': {
+      id: '3',
+      name: 'Sausage',
+    },
+    '4': {
+      id: '4',
+      name: 'Beans',
+    },
+    '5': {
+      id: '5',
+      name: 'Kale'
+    }
   },
-  '3': {
-    id: '3',
-    name: 'summer',
-  },
-  '4': {
-    id: '4',
-    name: 'fall',
-  },
-  order: ['1', '2', '3', '4']
 }
 
 class App extends Component {
@@ -43,33 +60,74 @@ class App extends Component {
       return
     }
 
-    const newCards = [...this.state.cards.order]
+    if (destination.droppableId === source.droppableId) {
 
-    newCards.splice(source.index, 1)
-    newCards.splice(destination.index, 0, draggableId)
+      const newOrder = [...this.state.cards.categories[destination.droppableId].products]
+      newOrder.splice(source.index, 1)
+      newOrder.splice(destination.index, 0, draggableId)
 
-    this.setState({ 
-      cards: {
-        ...this.state.cards,
-        order: newCards,
-      }
-    })
+      this.setState({ 
+        cards: {
+          ...this.state.cards,
+          categories: {
+            ...this.state.cards.categories,
+            [destination.droppableId]: {
+              ...this.state.cards.categories[destination.droppableId],
+              products: newOrder,
+            }
+          }
+        }
+      })
+    }
+
+    if (destination.droppableId !== source.droppableId) {
+      const sourceOrder = [ ...this.state.cards.categories[source.droppableId].products ]
+      const destinationOrder = [ ...this.state.cards.categories[destination.droppableId].products ]
+
+      const updatedSourceOrder = sourceOrder.filter(product => draggableId !== product)
+      console.log("Source order", updatedSourceOrder)
+      console.log("Destination array", destinationOrder)
+      destinationOrder.splice(destination.index, 0, draggableId)
+      console.log("Dest updated", destinationOrder)
+
+      this.setState({ 
+        cards: {
+          ...this.state.cards,
+          categories: {
+            ...this.state.cards.categories,
+            [destination.droppableId]: {
+              ...this.state.cards.categories[destination.droppableId],
+              products: destinationOrder,
+            },
+            [source.droppableId]: {
+              ...this.state.cards.categories[source.droppableId],
+              products: updatedSourceOrder,
+            }
+          }
+        }
+      })
+
+
+    }
+
 
   }
 
   render() {
-    console.log(this.state.cards)
+    console.log("STATE",this.state.cards)
     return (
       <div className="main">
         <DragDropContext
           onDragEnd={this.onDragEnd}
         >
-          <BoxA cards={this.state.cards} />
-          <BoxB />
+          {this.state.cards.categoryOrder.map((cat, index) => (
+            <BoxA category={this.state.cards.categories[cat]} index={cat} products={this.state.cards.products} />
+          ))}
         </DragDropContext>
       </div>
     );
   }
 }
+
 
 export default App;
