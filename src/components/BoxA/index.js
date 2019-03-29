@@ -6,7 +6,8 @@ import '../../App.css'
 
 const TaskList = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   width: 400px;
   height: 400px;
   background: #efefef;
@@ -17,13 +18,28 @@ const TaskList = styled.div`
 `;
 
 class BoxA extends Component {
+  
+  partitionArray = (array, size) => array.map( (e,i) => (i % size === 0) ? array.slice(i, i + size) : null ) .filter( (e) => e )
+  
   render() {
     console.log("BOXA: ", this.props)
+    const items = this.partitionArray(this.props.category.products, 4)
+    console.log(items)
+
     return (
-      <Droppable droppableId={this.props.index}>
+      <Droppable droppableId={this.props.index} direction="horizontal">
         {(provided, snapshot) => (
-          <TaskList {...provided.droppableProps } ref={provided.innerRef} isDraggingOver={snapshot.isDraggingOver}>
-          <div style={{ marginBottom: '1em', fontSize: '24px', fontWeight: 'bold' }}>{this.props.category.name}</div>
+          <TaskList 
+            {...provided.droppableProps } 
+            ref={provided.innerRef} 
+            isDraggingOver={snapshot.isDraggingOver}
+          >
+          {/* <div 
+            style={{ 
+              marginBottom: '1em', 
+              fontSize: '24px', 
+              fontWeight: 'bold' 
+            }}>{this.props.category.name}</div> */}
             {this.props.category.products.map((product, index) => (
               <Card 
                 card={this.props.products[product]}

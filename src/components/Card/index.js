@@ -4,8 +4,10 @@ import styled from 'styled-components'
 
 const Season = styled.div`
   padding: 15px 30px;
+  width: 35px;
+  height: 50px;
   border: 3px solid #777;
-  margin-bottom: 2em;
+  margin: 10px;
   text-align: center;
   background: ${props => (props.isDragging ? '#ccc' : 'white')};
 `
@@ -21,7 +23,7 @@ class Card extends Component {
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
         >
-          { this.props.card.name }
+          { this.props.card.id }
         </Season>
       )}
       </Draggable>

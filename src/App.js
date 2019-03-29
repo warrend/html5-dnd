@@ -8,7 +8,7 @@ const data = {
     'cat-1': {
       id: 'cat-1',
       name: 'Meat',
-      products: ['1', '3'],
+      products: ['1', '3', '6', '7', '8', '9', '10'],
     },
     'cat-2':{
       id: 'cat-2',
@@ -36,6 +36,26 @@ const data = {
     },
     '5': {
       id: '5',
+      name: 'Kale'
+    },
+    '6': {
+      id: '6',
+      name: 'Chicken',
+    },
+    '7': {
+      id: '7',
+      name: 'Tofu',
+    },
+    '8': {
+      id: '8',
+      name: 'Sausage',
+    },
+    '9': {
+      id: '9',
+      name: 'Beans',
+    },
+    '10': {
+      id: '10',
       name: 'Kale'
     }
   },
