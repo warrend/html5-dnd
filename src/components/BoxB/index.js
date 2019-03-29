@@ -7,28 +7,29 @@ class BoxB extends Component {
       '1': {
         id: 0,
         name: 'kale',
-        color: 'green',
+        color: '#64C321',
       },
       '2': {
         id: 1,
         name: 'tofu',
-        color: '#cc9900',
+        color: '#DD5E25',
       },
       '3': {
         id: 2,
         name: 'beans',
-        color: '#222',
+        color: '#C8224F',
       },
       '4':{
         id: 3,
         name: 'rice',
-        color: 'grey',
+        color: '#199566',
       },
     },
     itemOrder: ['1', '2', '3', '4'],
     source: null,
     destination: null,
-    hovering: null,
+    hovering: undefined,
+    isHovering: false,
   }
 
   onDragStart = e => {
@@ -38,18 +39,19 @@ class BoxB extends Component {
     })
   }
 
-  onDragEnd = async e => {
+  onDragEnd = e => {
     console.log("[SOURCE]", e.target.id)
+ 
     this.updateItems(this.state.source, this.state.destination)
   }
 
   onDragOver = (e) => {
     e.preventDefault()
     console.log('hovering over...', e.target.id)
-    this.setState({ hovering: e.target.id })
+    this.setState({ hovering: e.target.id, isHovering: true })
   }
 
-  onDrop = (e) => {
+  onDrop = e => {
     let event = e
     event.stopPropagation()
     event.preventDefault()
@@ -71,12 +73,13 @@ class BoxB extends Component {
       itemOrder: updateOrder,
       source: null,
       destination: null,
-      hovering: null,
+      hovering: undefined,
+      isHovering: false,
     })
   }
 
   render() {
-    const { items, itemOrder, hovering } = this.state
+    const { items, itemOrder, hovering, isHovering } = this.state
     console.log(this.state)
     return (
       <div className="box">
@@ -86,7 +89,11 @@ class BoxB extends Component {
             className="item"
             draggable 
             droppable
-            style={{ background: hovering && hovering === index.toString() ? '#abcafc' : items[item].color, opacity: this.state.source === index.toString() ? '.25' : '1'}}
+            style={{ 
+              transition: 'background 300ms ease',
+              background: isHovering && hovering === index.toString() ? '#abcafc' : items[item].color, 
+              opacity: this.state.source === index.toString() ? '.25' : '1'
+            }}
             onDragStart={(e) => this.onDragStart(e)}
             onDragEnd={(e) => this.onDragEnd(e)}
             onDragOver={(e) => this.onDragOver(e)}

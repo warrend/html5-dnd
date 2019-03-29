@@ -3,7 +3,7 @@
 }
 
 .main {
-  background-color: #222;
+  background-color: #999;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -49,11 +49,9 @@
   color: #fff;
   width: 155px;
   height: 155px;
+  transition: background 300ms ease;
   background: #cc0000;
   border: 2px solid #222;
   margin: 5px;
-}
-
-.dragging {
-  background: blue;
+  cursor: move;
 }
