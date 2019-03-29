@@ -3,6 +3,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 
 const Season = styled.div`
+  float: left;
   padding: 15px 30px;
   width: 35px;
   height: 50px;

@@ -14,7 +14,8 @@
 .box {
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   width: 400px;
   height: 400px;
   background: #efefef;
@@ -38,4 +39,21 @@
   height: 150px;
   background: #ddd;
   margin-bottom: 3em;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #fff;
+  width: 155px;
+  height: 155px;
+  background: #cc0000;
+  border: 2px solid #222;
+  margin: 5px;
+}
+
+.dragging {
+  background: blue;
 }

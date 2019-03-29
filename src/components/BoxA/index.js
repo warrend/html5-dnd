@@ -5,9 +5,9 @@ import Card from '../Card'
 import '../../App.css'
 
 const TaskList = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
   width: 400px;
   height: 400px;
   background: #efefef;
