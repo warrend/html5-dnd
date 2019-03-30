@@ -87,8 +87,7 @@ class BoxB extends Component {
           <div 
             id={index} 
             className="item"
-            draggable 
-            droppable
+            draggable="true"
             style={{ 
               transition: 'background 300ms ease',
               background: isHovering && hovering === index.toString() ? '#abcafc' : items[item].color, 
