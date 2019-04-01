@@ -34,6 +34,9 @@ class BoxB extends Component {
 
   onDragStart = e => {
     console.log("[START]",e.target.id)
+
+    // Need this line for Firefox drag and drop to work
+    e.dataTransfer.setData('text/plain', e.target.id)
     this.setState({
       source: e.target.id,
     })
@@ -63,7 +66,6 @@ class BoxB extends Component {
     console.log(source, destination)
     const updateOrder = [...this.state.itemOrder]
     const sourceItem = this.state.itemOrder[source]
-    // const destinationItem = this.item.itemOrder[destination]
 
     updateOrder.splice(source, 1)
     updateOrder.splice(destination, 0, sourceItem)
